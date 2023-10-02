@@ -1,15 +1,15 @@
-const newTodoInput = document.getElementById("newTodo");
-const todoForm = document.getElementById("todoForm");
-const todoList = document.getElementById("todoList");
-const totalTodos = document.getElementById("totalTodos");
+const newTodoInput = document.getElementById("new-todo");
+const todoForm = document.getElementById("todo-form");
+const todoList = document.getElementById("todo-list");
+const totalTodos = document.getElementById("total-todos");
 
 // Initialize todo
 let todosCount = 0;
 
-//update the total todos count
+// Update the total todos count
 const updateTotalTodos = () => totalTodos.textContent = `Total Todos: ${todosCount}`;
 
-// line through effect when click checkbox
+// Line-through effect when click checkbox
 const toggleStrikethrough = (event) => {
     const checkbox = event.target;
 
@@ -20,44 +20,65 @@ const toggleStrikethrough = (event) => {
     }
 }
 
-// add a new todo
+// Add a new todo
 const addTodo = (event) => {
     event.preventDefault();
-    const newTodoText = newTodoInput.value;
-    if (newTodoText.trim() !== "") {
+     const newTodoText = newTodoInput.value;
+
+    if (!newTodoText.trim()) {
+         throw alert("Please enter the task");
+    } else {
+        // create elements
         const newTodoItem = document.createElement("li");
-        newTodoItem.innerHTML = `
-            <input type="checkbox" class="checkbox">
-            <span>${newTodoText}</span>
-            <button class="edit-button">Edit</button>
-            <button class="delete-button">Delete</button>
-        `;
+        const checkbox = document.createElement("input");
+        const span = document.createElement("span");
+        const editButton = document.createElement("button");
+        const deleteButton = document.createElement("button");
+
+        // attributes and content
+        checkbox.type = "checkbox";
+        checkbox.classList.add("checkbox");
+        span.textContent = newTodoText;
+        editButton.textContent = "Edit";
+        editButton.classList.add("edit-button");
+        deleteButton.textContent = "Delete";
+        deleteButton.classList.add("delete-button");
+
+        // append elements to the newTodoItem
+        newTodoItem.appendChild(checkbox);
+        newTodoItem.appendChild(span);
+        newTodoItem.appendChild(editButton);
+        newTodoItem.appendChild(deleteButton);
+
+        // append newTodoItem to todoList
         todoList.appendChild(newTodoItem);
+
+        // clear input field and update count
         newTodoInput.value = "";
         todosCount++;
         updateTotalTodos();
 
-        // click event listener to the Edit button 
-        const editButton = newTodoItem.querySelector(".edit-button");
+        // Click event listener for the Edit button
         editButton.addEventListener("click", editTodo);
 
-        // click event listener to the Delete button f
-        const deleteButton = newTodoItem.querySelector(".delete-button");
+        // Click event listener for the Delete button
         deleteButton.addEventListener("click", deleteTodo);
     }
 }
 
-// EDIT a todo
+// Edit a todo
 const editTodo = (event) => {
     const todoItem = event.target.parentElement;
     const taskDescription = todoItem.querySelector("span");
 
-    //  enter Edit TODO description
+    // Enter Edit TODO description
     const newTaskDescription = prompt("Edit task description:", taskDescription.textContent);
 
     // Update TODO if the user entered a value
-    if (newTaskDescription !== null) {
+    if (newTaskDescription) {
         taskDescription.textContent = newTaskDescription;
+    } else {
+       throw alert("Please enter a valid task description.");
     }
 }
 
