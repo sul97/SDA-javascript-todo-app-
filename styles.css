@@ -1,0 +1,70 @@
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  
+}
+
+h1{
+    font-size: 70px;
+    font-weight: 600;
+    background-image: linear-gradient(to left, #553c9a, #b393d3);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    text-align: center;
+}
+
+div{
+    text-align: center;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    gap: 1rem;
+    margin-left: 10px;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+    
+}
+/* /add button */
+button[type="submit"] {
+    background-color: #366c7e;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+button.edit-button {
+    background-color: #59845c;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 8px;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+button.delete-button {
+    background-color: #ac2a21;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 8px;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
