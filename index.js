@@ -7,9 +7,7 @@ const totalTodos = document.getElementById("totalTodos");
 let todosCount = 0;
 
 //update the total todos count
-const updateTotalTodos = () => {
-    totalTodos.textContent = `Total Todos: ${todosCount}`;
-}
+const updateTotalTodos = () => totalTodos.textContent = `Total Todos: ${todosCount}`;
 
 // line through effect when click checkbox
 const toggleStrikethrough = (event) => {
