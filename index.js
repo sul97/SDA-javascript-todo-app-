@@ -2,12 +2,20 @@ const newTodoInput = document.getElementById("new-todo");
 const todoForm = document.getElementById("todo-form");
 const todoList = document.getElementById("todo-list");
 const totalTodos = document.getElementById("total-todos");
+const CompletedTodos = document.getElementById("complet-todos");
+const allTodos = document.getElementById("all-todos");
+const activeTodos = document.getElementById("active-todos");
+const completedTodos = document.getElementById("completed-todos");
 
 // Initialize todo
 let todosCount = 0;
+let completedCount = 0;
 
 // Update the total todos count
-const updateTotalTodos = () => totalTodos.textContent = `Total Todos: ${todosCount}`;
+const updateTotalTodos = () => totalTodos.textContent = `Total Number of Task:${todosCount}`;
+
+// Update the total completed todos
+const updateTotalCompleted = () => CompletedTodos.textContent = `Total Number of Compleeted Task: ${completedCount}`;
 
 // Line-through effect when click checkbox
 const toggleStrikethrough = (event) => {
@@ -15,9 +23,12 @@ const toggleStrikethrough = (event) => {
 
     if (checkbox.checked) {
         checkbox.nextElementSibling.style.textDecoration = "line-through";
+        completedCount++;
     } else {
         checkbox.nextElementSibling.style.textDecoration = "none";
+        completedCount--;
     }
+    updateTotalCompleted(); 
 }
 
 // Add a new todo
@@ -52,8 +63,8 @@ const addTodo = (event) => {
 
         // append newTodoItem to todoList
         todoList.appendChild(newTodoItem);
-
-        // clear input field and update count
+        
+        newTodoItem.style.display = "block";
         newTodoInput.value = "";
         todosCount++;
         updateTotalTodos();
@@ -63,6 +74,7 @@ const addTodo = (event) => {
 
         // Click event listener for the Delete button
         deleteButton.addEventListener("click", deleteTodo);
+        
     }
 }
 
@@ -82,14 +94,37 @@ const editTodo = (event) => {
     }
 }
 
-// delete a todo
+// delete a todo and --completed task if delete
 const deleteTodo = (event) => {
     const todoItem = event.target.parentElement;
+    const checkbox = todoItem.querySelector(".checkbox");
+    if (checkbox.checked) {
+        completedCount--; 
+    }
     todoItem.remove();
     todosCount--;
+    updateTotalCompleted(); 
     updateTotalTodos();
 }
+// filter a todo items
+const filterTodos = (filterType) => {
+    const todoItems = todoList.childNodes
 
+    todoItems.forEach((item) => {
+        const checkbox = item.querySelector(".checkbox");
+        const isCompleted = checkbox.checked;
+        let display = false;
+
+        if (filterType === "all") {
+            display = true;
+        } else if (filterType === "active" && !isCompleted) {
+            display = true;
+        } else if (filterType === "completed" && isCompleted) {
+            display = true;
+        }
+        item.style.display = display ? "block" : "none";
+    });
+};
 
 todoForm.addEventListener("submit", addTodo);
 todoList.addEventListener("change", (event) => {
@@ -97,3 +132,7 @@ todoList.addEventListener("change", (event) => {
         toggleStrikethrough(event);
     }
 });
+
+allTodos.addEventListener("click", () => filterTodos("all"));
+activeTodos.addEventListener("click", () => filterTodos("active"));
+completedTodos.addEventListener("click", () => filterTodos("completed"));
